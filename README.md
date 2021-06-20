@@ -1,2 +1,2 @@
-# DobraGraOAfryce
- Gra
+# SURVIVAL-KURWA-WSZEDZIE
+ c
