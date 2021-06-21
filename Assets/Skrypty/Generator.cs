@@ -14,7 +14,8 @@ public class Generator : MonoBehaviour
     public int xSize = 100;
     public int zSize = 100;
 
-    //public System.Random rand = new System.Random();
+    System.Random rand = new System.Random();
+   
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +36,7 @@ public class Generator : MonoBehaviour
         {
             for (int x = 0; x <= xSize; x++)
             {
-                float y = Mathf.PerlinNoise(x * .05f, z * .05f) * 04f;
+                float y = Mathf.PerlinNoise(x * .105f, z * .05f) * 10f;
                 wierzcholki[i] = new Vector3(x, y, z);
                 i++;
             }
