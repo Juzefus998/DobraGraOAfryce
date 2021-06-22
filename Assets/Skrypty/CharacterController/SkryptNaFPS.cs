@@ -11,8 +11,8 @@ public class SkryptNaFPS : MonoBehaviour
     [SerializeField] float JumpHeight = 200;
     [SerializeField] [Range(0.0f, 0.5f)] float moveSmoothTime = 0.3f;
     [SerializeField] [Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
-    Animator animator;
-
+    [SerializeField] Animator anim;
+    
 
     [SerializeField] bool lockCursor = true;
 
@@ -29,7 +29,7 @@ public class SkryptNaFPS : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponentInChildren<Animator>();
+        anim = GetComponentInChildren<Animator>();
         if (lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -38,13 +38,38 @@ public class SkryptNaFPS : MonoBehaviour
 
     }
 
+    void Idle()
+    {
+        anim.SetFloat("Speed", 0);
+    }
+    void Walk()
+    {
+        anim.SetFloat("Speed", 0.1f);
+    }
+     void Run()
+    {
+        anim.SetFloat("Speed", 0.5f);
+    }
+     void Sprint()
+    {
+        anim.SetFloat("Speed", 1);
+    }
     void Update()
     {
         UpdateMouseLook();
         UpdateMovement();
-        Debug.Log(controller.isGrounded);
+        //if (!(!Input.GetKeyDown("up") && !Input.GetKeyDown("down") && !Input.GetKeyDown("left") && !Input.GetKeyDown("right") && !Input.GetKeyDown("left shift")) != false)
+        //{
+        //    return;    //KIEDYŚ TO BYŁO!
+        //}
+        //Idle();
+        if (Input.anyKey == false)
+        {
+            Idle();
+        }
+
     }
-    
+
 
     void UpdateMouseLook()
     {
@@ -75,19 +100,19 @@ public class SkryptNaFPS : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
-        if (Input.GetKey("left shift") )
+        if (Input.GetKey("left shift"))
         {
             walkSpeed = 12f;
+            Sprint();   
         }
+
         else
         {
             walkSpeed = 6f;
+            Run();
         }
-        if (Input.GetKey("Jump") && controller.isGrounded)
-        {
-            velocityY += Mathf.Sqrt(200 * -2f * gravity);
 
-            }
+         
       }
 
     }
